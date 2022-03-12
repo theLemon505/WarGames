@@ -12,11 +12,11 @@ var timer = 5
 var active = true
 var vector = Vector3.ZERO
 var inputVector = Vector2.ZERO
-var act_speed
+var act_speed = 0
 var mouse_state = false
 
 func _ready():
-	if active:
+	if active and Network.socket.get_connection_status() == WebSocketClient.CONNECTION_CONNECTED:
 		var file = File.new()
 		file.open("weapon_data.json", file.READ)
 		var text = file.get_as_text()
@@ -40,10 +40,25 @@ func set_rot(anglex, angley):
 	var qued = head.transform.basis.get_rotation_quat()
 	head.global_transform.basis = Basis(Quat(Vector3(angley, anglex, 0))).scaled(head.global_transform.basis.get_scale())
 
-func _process(delta):
+func _integrate_forces(state):
 	if active:
 		if Input.is_action_pressed("jump") and $RayCast.is_colliding():
-			add_central_force(Vector3.UP * 6000)
+			linear_velocity.y = jump_force
+		if Input.is_action_pressed("sprint") and vector.length() != 0:
+			act_speed = acceleration * 2
+		else:
+			act_speed = acceleration
+		if Input.is_action_pressed("crouch"):
+			linear_velocity = linear_velocity
+		else:
+			linear_velocity.x = vector.x
+			linear_velocity.z = vector.z
+			if $RayCast.is_colliding():
+				vector.x = clamp(vector.x, -act_speed, act_speed)
+				vector.z = clamp(vector.z, -act_speed, act_speed)
+
+func _process(delta):
+	if active:
 		timer -= 1
 		if Input.is_action_pressed("aim"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -74,14 +89,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("crouch"):
 			add_central_force(transform.basis.z * 100)
 		if Input.is_action_pressed("crouch"):
-			linear_velocity = linear_velocity
 			$bot/AnimationPlayer.play("crouch")
-		else:
-			linear_velocity.x = vector.x * delta
-			linear_velocity.z = vector.z * delta
-			if $RayCast.is_colliding():
-				vector.x = clamp(vector.x, -act_speed, act_speed)
-				vector.z = clamp(vector.z, -act_speed, act_speed)
 		if timer <= 0 and Network.socket.get_connection_status() == WebSocketClient.CONNECTION_CONNECTED:
 			Network.send({"contact":"server","type":"set-meta","meta":
 				{"rotation":{"x":head.global_transform.basis.get_euler().x, "y":head.global_transform.basis.get_euler().y, "z":head.global_transform.basis.get_euler().z},
