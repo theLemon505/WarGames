@@ -6,7 +6,7 @@
 [ext_resource path="res://Imports/Audio/shoot.mp3" type="AudioStream" id=4]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.198442, 0.23906, 0.388149 )
+extents = Vector3( 0.0917428, 0.0775007, 0.0802006 )
 
 [node name="Gun" type="RigidBody"]
 collision_layer = 2

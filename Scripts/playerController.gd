@@ -35,8 +35,6 @@ func _input(event):
 			inputVector += (event.relative / 360) * Settings.sensitivity
 			inputVector.y = clamp(inputVector.y, deg2rad(-90), deg2rad(90))
 			set_rot(-inputVector.x, -inputVector.y)
-		if event.is_action("jump") and $RayCast.is_colliding():
-			linear_velocity.y = jump_force
 
 func set_rot(anglex, angley):
 	var qued = head.transform.basis.get_rotation_quat()
@@ -44,6 +42,8 @@ func set_rot(anglex, angley):
 
 func _process(delta):
 	if active:
+		if Input.is_action_pressed("jump") and $RayCast.is_colliding():
+			add_central_force(Vector3.UP * 6000)
 		timer -= 1
 		if Input.is_action_pressed("aim"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -52,7 +52,7 @@ func _process(delta):
 		var x = Input.get_action_strength("right") - Input.get_action_strength("left")
 		var z = Input.get_action_strength("down") - Input.get_action_strength("up")
 		
-		if Input.is_action_just_pressed("sprint"):
+		if Input.is_action_just_pressed("sprint") and vector.length() != 0:
 			$AudioStreamPlayer3D.playing = true
 		if Input.is_action_just_released("sprint"):
 			$AudioStreamPlayer3D.playing = false
