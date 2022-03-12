@@ -1,0 +1,21 @@
+[gd_scene format=2]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+margin_top = 59.0
+margin_right = 255.0
+margin_bottom = 109.0
+alignment = 1
+
+[node name="Label" type="Label" parent="."]
+margin_left = 70.0
+margin_top = 18.0
+margin_right = 134.0
+margin_bottom = 32.0
+text = "username"
+align = 1
+
+[node name="Button" type="Button" parent="."]
+margin_left = 138.0
+margin_right = 185.0
+margin_bottom = 50.0
+text = "ready"

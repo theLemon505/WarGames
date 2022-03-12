@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/menuController.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Graphics/2D/UiTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Maps/Test.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/GunEditor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Graphics/2D/font_small.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Scenes/Lobby.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.176471, 0.65098, 1, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Menu" type="Spatial"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = -7.0
+margin_right = 3.0
+margin_bottom = -7.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+edit_scene = ExtResource( 4 )
+game_scene = ExtResource( 3 )
+lobby_scene = ExtResource( 6 )
+
+[node name="Label5" type="Label" parent="Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -40.0
+margin_right = 1024.0
+text = "server status: not connected"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -222.0
+margin_top = -118.0
+margin_right = 222.0
+margin_bottom = 118.0
+alignment = 1
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+margin_right = 444.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 5 )
+text = "must edit gun before playing"
+align = 1
+
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer"]
+margin_top = 24.0
+margin_right = 444.0
+margin_bottom = 64.0
+align = 1
+placeholder_text = "enter username"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+margin_top = 68.0
+margin_right = 444.0
+margin_bottom = 118.0
+text = "EDIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer"]
+margin_top = 122.0
+margin_right = 444.0
+margin_bottom = 172.0
+text = "OFFLINE"
+
+[node name="Button4" type="Button" parent="Control/VBoxContainer"]
+margin_top = 176.0
+margin_right = 444.0
+margin_bottom = 226.0
+text = "ONLINE"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+margin_top = 230.0
+margin_right = 444.0
+margin_bottom = 270.0
+text = "mouse sensitivity"
+align = 1
+
+[node name="HSlider" type="HSlider" parent="Control/VBoxContainer"]
+margin_top = 274.0
+margin_right = 444.0
+margin_bottom = 290.0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 0.1
+
+[node name="Button3" type="Button" parent="Control/VBoxContainer"]
+margin_top = 294.0
+margin_right = 444.0
+margin_bottom = 324.0
+custom_fonts/font = ExtResource( 5 )
+custom_styles/disabled = SubResource( 1 )
+disabled = true
+
+[connection signal="text_changed" from="Control/VBoxContainer/LineEdit" to="Control" method="_on_username_changed"]
+[connection signal="pressed" from="Control/VBoxContainer/Button" to="Control" method="_on_edit_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Button2" to="Control" method="_on_play_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Button4" to="Control" method="_on_online_pressed"]
+[connection signal="value_changed" from="Control/VBoxContainer/HSlider" to="Control" method="_on_sensitivity_changed"]

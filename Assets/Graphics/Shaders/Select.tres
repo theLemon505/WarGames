@@ -1,0 +1,56 @@
+[gd_resource type="VisualShader" load_steps=4 format=2]
+
+[sub_resource type="VisualShaderNodeFresnel" id=1]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeColorUniform" id=4]
+uniform_name = "ColorUniform"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=5]
+output_port_for_preview = 0
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+uniform vec4 ColorUniform : hint_color;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:5
+	vec3 n_out5p0 = ColorUniform.rgb;
+	float n_out5p1 = ColorUniform.a;
+
+// Fresnel:2
+	float n_in2p3 = 1.00000;
+	float n_out2p0 = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in2p3);
+
+// ScalarOp:6
+	float n_out6p0 = n_out5p1 * n_out2p0;
+
+// Output:0
+	ALBEDO = n_out5p0;
+	ALPHA = n_out6p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -574.859, 6.27666 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( -360, 240 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( -180, 120 )
+nodes/fragment/6/node = SubResource( 5 )
+nodes/fragment/6/position = Vector2( 80, 340 )
+nodes/fragment/connections = PoolIntArray( 5, 1, 6, 0, 2, 0, 6, 1, 6, 0, 0, 1, 5, 0, 0, 0 )

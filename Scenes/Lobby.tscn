@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Graphics/2D/UiTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/lobby.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Game.tscn" type="PackedScene" id=3]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+game_scene = ExtResource( 3 )
+
+[node name="Start" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -99.5
+margin_top = -106.0
+margin_right = 99.5
+margin_bottom = 106.0
+custom_constants/separation = 36
+alignment = 2
+
+[node name="LineEdit" type="LineEdit" parent="Start"]
+margin_right = 205.0
+margin_bottom = 40.0
+align = 1
+expand_to_text_length = true
+placeholder_text = "lobby name"
+
+[node name="Button" type="Button" parent="Start"]
+margin_top = 76.0
+margin_right = 205.0
+margin_bottom = 126.0
+text = "join lobby"
+
+[node name="Button2" type="Button" parent="Start"]
+margin_top = 162.0
+margin_right = 205.0
+margin_bottom = 212.0
+text = "create lobby"
+
+[node name="Wait" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.5
+margin_top = -106.0
+margin_right = 127.5
+margin_bottom = 106.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Wait"]
+margin_top = 86.0
+margin_right = 255.0
+margin_bottom = 126.0
+
+[connection signal="pressed" from="Start/Button" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Start/Button2" to="." method="_on_create_pressed"]

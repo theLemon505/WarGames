@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Imports/pain_base.glb" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Materials/Team_Color.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Materials/Dark_Grey.tres" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/Grey.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Materials/Special/Clear.tres" type="Material" id=5]
+[ext_resource path="res://Assets/Materials/Special/No_Lit.tres" type="Material" id=6]
+[ext_resource path="res://Scripts/gunProperty.gd" type="Script" id=7]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.69917, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+render_priority = 1
+direction = Vector3( 0, 0, -10 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+scale = 0.5
+scale_curve = SubResource( 4 )
+
+[sub_resource type="SphereMesh" id=2]
+material = ExtResource( 6 )
+
+[node name="pain_base" instance=ExtResource( 1 )]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0 )
+
+[node name="base" parent="." index="0"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 2 )
+material/2 = ExtResource( 3 )
+
+[node name="small_canister" parent="." index="1"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 2 )
+script = ExtResource( 7 )
+ammo = 10
+
+[node name="medium_canister" parent="." index="2"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 2 )
+script = ExtResource( 7 )
+ammo = 25
+
+[node name="large_canister" parent="." index="3"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 2 )
+script = ExtResource( 7 )
+ammo = 50
+
+[node name="light_stock" parent="." index="4"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 3 )
+script = ExtResource( 7 )
+
+[node name="red_dot" parent="." index="5"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 5 )
+script = ExtResource( 7 )
+aim = 60
+
+[node name="range_muzzle" parent="." index="6"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 3 )
+script = ExtResource( 7 )
+accuracy = 50
+
+[node name="4x_scope" parent="." index="7"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 5 )
+script = ExtResource( 7 )
+aim = 40
+
+[node name="2x_scope" parent="." index="8"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 5 )
+script = ExtResource( 7 )
+aim = 35
+
+[node name="medium_stock" parent="." index="9"]
+material/0 = ExtResource( 4 )
+script = ExtResource( 7 )
+
+[node name="handle" parent="." index="10"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 3 )
+script = ExtResource( 7 )
+
+[node name="Position3D" type="Position3D" parent="." index="11"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.27412, 5.61085 )
+
+[node name="CPUParticles" type="Particles" parent="Position3D" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00423316, -2.38419e-07, 2.30332 )
+emitting = false
+amount = 32
+lifetime = 0.15
+visibility_aabb = AABB( -4, -4.43779, -10.6129, 8, 8.87558, 21.2259 )
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 2 )
+
+[node name="advanced_muzzle" parent="." index="12"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 3 )
+script = ExtResource( 7 )
+accuracy = 25
+
+[node name="range_grip" parent="." index="13"]
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 3 )
+script = ExtResource( 7 )

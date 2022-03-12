@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/paintball.mp3-a48c33d63433c7c01ad40b691e6156c0.mp3str"
+
+[deps]
+
+source_file="res://Maps/paintball.mp3"
+dest_files=[ "res://.import/paintball.mp3-a48c33d63433c7c01ad40b691e6156c0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

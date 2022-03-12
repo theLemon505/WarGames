@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Prototype/Plane.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Prototype/Block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Prototype/Bot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Graphics/Cold.tres" type="Environment" id=4]
+[ext_resource path="res://Assets/Player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Weapons/Gun.tscn" type="PackedScene" id=6]
+
+[node name="Test" type="Spatial"]
+
+[node name="Block" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 28, -22, 5, 0 )
+
+[node name="Block2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 28, 22, 5, 0 )
+
+[node name="Block3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.00011393, 0, -22.8399, 0, 4.94254, 0, 1.20711, 0, 0.00472072, -0.00250646, 5, -26.5565 )
+
+[node name="Block5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 9.437e-05, 0, -22.84, 0, 1, 0, 1, 0, 0.00215541, -0.00250646, 0.834049, -8.86767 )
+
+[node name="Block4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.00011393, 0, -22.8399, 0, 4.94254, 0, 1.20711, 0, 0.00472072, 0.00250646, 5, 26.5565 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.180364, -0.955639, 0.232858, 0.107246, 0.254436, 0.961125, -0.977736, -0.14838, 0.14838, 2, 2, 2 )
+
+[node name="Plane" parent="." instance=ExtResource( 1 )]
+transform = Transform( 22.9037, 0, 0, 0, 1, 0, 0, 0, 27.8791, 0, 0, 0 )
+
+[node name="Bot" parent="." instance=ExtResource( 3 )]
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+
+[node name="Gun" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3014, 0, 0 )
+player_path = NodePath("../Player")

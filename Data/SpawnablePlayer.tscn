@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Weapons/Gun.tscn" type="PackedScene" id=2]
+
+[node name="SpawnablePlayer" type="Spatial"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.00189, 0, 0, 0, 1.00189, 0, 0, 0, 1.00189, -0.0204926, -1.52588e-05, -0.442909 )
+
+[node name="Gun" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
+player_path = NodePath("../Player")

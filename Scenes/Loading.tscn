@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Graphics/2D/UiTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Graphics/2D/font_small.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scripts/loading.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Menu.tscn" type="PackedScene" id=4]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+game_scene = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -103.0
+margin_top = 87.0
+margin_right = 115.0
+margin_bottom = 127.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+text = "DISCLAIMER!!!"
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -365.5
+margin_top = -33.0
+margin_right = 365.5
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 2 )
+text = "this is a verrrryyy early alpha test of a game that is designed to be a simple browser fps game.
+this test is mainly to see if the gun mechanics work, please let me know about any bugs
+any feedback would be greatly appreciated! please email me at teschnerm@cbchs.org,
+ there will be many more tests to come! also this game will be multiplayer."
+align = 1
