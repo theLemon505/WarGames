@@ -153,6 +153,7 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 shape = SubResource( 9 )
 
 [node name="Control" type="Control" parent="."]
+modulate = Color( 0, 0.647059, 1, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -162,10 +163,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 499.5
-margin_top = 287.5
-margin_right = 524.5
-margin_bottom = 312.5
+margin_left = -12.5
+margin_top = -12.5
+margin_right = 12.5
+margin_bottom = 12.5
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]

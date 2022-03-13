@@ -69,7 +69,7 @@ func _process(delta):
 		
 		if Input.is_action_just_pressed("sprint") and vector.length() != 0:
 			$AudioStreamPlayer3D.playing = true
-		if Input.is_action_just_released("sprint"):
+		elif Input.is_action_just_released("sprint") or vector.length() == 0:
 			$AudioStreamPlayer3D.playing = false
 		if Input.is_action_pressed("sprint") and vector.length() != 0:
 			$bot/AnimationPlayer.play("sprint")

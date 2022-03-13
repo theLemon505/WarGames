@@ -7,12 +7,11 @@ var map
 
 func _ready():
 	Network.connect("client_left", self, "_on_client_disconnect")
+	Network.connect("spawn_item", self, "_on_item_spawn")
 	Network.connect("room_update", self, "_on_room_update")
 	map = maps[rand_range(0, maps.size() - 1)].instance()
 	add_child(map)
-	print(Network.client_id)
 	for client in Network.room_clients:
-		print(client)
 		var player = player_spawnable.instance()
 		if client != Network.client_id:
 			player.name = client
@@ -31,6 +30,16 @@ func _on_client_disconnect(id):
 	if get_child(1).get_node(id) != null:
 		var client =  get_child(1).get_node(id)
 		client.queue_free()
+
+func _on_item_spawn(name, path, meta):
+	if !get_tree().current_scene.has_node(name):
+		var node = load(path).instance()
+		node.name = name
+		get_tree().current_scene.add_child(node)
+		if meta.has("position"):
+			var pos = meta["position"]
+			print("test")
+			node.transform.origin = Vector3(pos["x"], pos["y"], pos["z"])
 
 func _on_room_update(data):
 	for key in data.keys():

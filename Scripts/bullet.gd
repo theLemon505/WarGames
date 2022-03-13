@@ -1,10 +1,15 @@
 extends RigidBody
 
+var source = false
+
 func _ready():
+	var vector = transform.origin
+	if source:
+		print("clone")
+		Network.send({"contact":"server","type":"spawn","name":name,"roomId":Network.room_id,"path":"res://Assets/Weapons/Bullet.tscn", "meta":{"position":{"x":vector.x,"y":vector.y,"z":vector.z}}})
 	$Timer.connect("timeout", self, "_on_timeout")
 	$Area.connect("body_entered", self, "_on_collision")
 	name = str(get_parent().get_child_count())
-	var vector = linear_velocity
 
 func _on_timeout():
 	queue_free()

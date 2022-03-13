@@ -27,7 +27,9 @@ func _ready():
 	if player.active:
 		load_data()
 		real_ammo = ammo
+		$Control/HBoxContainer/Label.text = str(real_ammo) + "/" + str(ammo)
 	else:
+		$Control/HBoxContainer/Label.hide()
 		real_ammo = ammo
 	if hand != null:
 		axis_lock_angular_x = true
@@ -68,6 +70,7 @@ func _process(delta):
 
 func reload():
 	real_ammo = ammo
+	$Control/HBoxContainer/Label.text = str(real_ammo) + "/" + str(ammo)
 
 func load_data():
 	var file = File.new()
@@ -87,6 +90,7 @@ func shoot():
 			$AudioStreamPlayer3D.play()
 			camera.get_parent().transform = camera.get_parent().transform.rotated(Vector3(1,0,0).rotated(Vector3(0,1,0), camera.global_transform.basis.get_euler().y), deg2rad(0.1 + recoil))
 			var b = bullet.instance()
+			b.source = true
 			get_tree().current_scene.add_child(b)
 			b.global_transform.origin = $pain_base/Position3D.global_transform.origin
 			var direction
@@ -113,6 +117,7 @@ func shoot():
 			t.set_one_shot(true)
 			self.add_child(t)
 			t.start()
+			$Control/HBoxContainer/Label.text = str(real_ammo) + "/" + str(ammo)
 			yield(t, "timeout")
 			$pain_base/Position3D/CPUParticles.emitting = false
 			t.queue_free()

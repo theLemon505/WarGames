@@ -14,6 +14,8 @@ signal start_game
 signal lobbied
 signal room_update
 signal client_left
+signal spawn_item
+signal delete_item
 
 func _ready():
 	socket.connect("data_received", self, "_on_data")
@@ -60,12 +62,7 @@ func _on_data():
 	var payload = JSON.parse(socket.get_peer(1).get_packet().get_string_from_utf8()).result
 	if payload["type"] == "spawn":
 		if payload["status"] == "good":
-			var parent = get_node(payload["parent"])
-			var child = load(payload["child"]).instance()
-			child.name = payload["name"]
-			var pos = payload["position"]
-			child.transform.origin = Vector3(pos["x"], pos["y"], pos["z"])
-			parent.add_child(child)
+			emit_signal("spawn_item", payload["name"], payload["path"], payload["meta"])
 	if payload["type"] == "handshake":
 		if payload["status"] == "good":
 			client_id = payload["id"]
