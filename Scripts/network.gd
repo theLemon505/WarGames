@@ -25,7 +25,7 @@ var server = "ws://45.33.126.24:4040/"
 var local = "ws://127.0.0.1:4040/"
 
 func connect_to_server():
-	var err = socket.connect_to_url(server)
+	var err = socket.connect_to_url(local)
 	if err != OK:
 		print("Unable to connect")
 		set_process(false)

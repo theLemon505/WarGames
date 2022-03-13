@@ -99,8 +99,8 @@ func _process(delta):
 			Network.send({"contact":"server","type":"update-room","roomId":Network.room_id})
 			timer = 5
 	else:
-		global_transform.origin = global_transform.origin.linear_interpolate(pos, delta * 4)
+		global_transform.origin = global_transform.origin.linear_interpolate(pos, delta * 2.5)
 		var current_rot = Quat(head.global_transform.basis.get_rotation_quat())
 		var target = Quat(rot)
-		var smooth = current_rot.slerp(target, delta * 4)
+		var smooth = current_rot.slerp(target, delta * 2.5)
 		head.global_transform.basis = Basis(smooth)

@@ -34,7 +34,7 @@ func _on_client_disconnect(id):
 
 func _on_room_update(data):
 	for key in data.keys():
-		if key != Network.client_id and key != Network.room_id and get_child(1).get_node(key) != null:
+		if key != Network.client_id and key != Network.room_id and get_child(1).has_node(key):
 			if data[key].has("position"):
 				var dat = data[key]
 				var play = get_child(1).get_node(key)
