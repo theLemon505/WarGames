@@ -11,6 +11,7 @@ var ammo = 0
 var recoil = 1
 var aim = 70
 var camera
+var reloading = false
 var set = false
 
 onready var real_ammo = ammo
@@ -24,14 +25,14 @@ var ok = true
 
 func _ready():
 	Network.connect("room_update", self, "_on_room_update")
-	if player.active:
+	if is_instance_valid(player) and player.active:
 		load_data()
 		real_ammo = ammo
 		$Control/HBoxContainer/Label.text = str(real_ammo) + "/" + str(ammo)
 	else:
 		$Control/HBoxContainer/Label.hide()
 		real_ammo = ammo
-	if hand != null:
+	if is_instance_valid(hand):
 		axis_lock_angular_x = true
 		axis_lock_angular_y = true
 		axis_lock_angular_z = true
@@ -45,7 +46,7 @@ func _ready():
 func _on_room_update(data):
 	if set == false:
 		for key in data.keys():
-			if key == player.get_parent().name:
+			if is_instance_valid(player) and key == player.get_parent().name:
 				var dat = data[key]
 				dat = dat["gun"]
 				self.data = dat
@@ -53,7 +54,7 @@ func _on_room_update(data):
 				set = true
 
 func _process(delta):
-	if hand != null:
+	if is_instance_valid(hand):
 		global_transform.origin.x = lerp(global_transform.origin.x, hand.global_transform.origin.x, delta * 45)
 		global_transform.origin.y = lerp(global_transform.origin.y, hand.global_transform.origin.y, delta * 45)
 		global_transform.origin.z = lerp(global_transform.origin.z, hand.global_transform.origin.z, delta * 45)
@@ -63,14 +64,24 @@ func _process(delta):
 		if player.active:
 			if Input.is_action_pressed("aim"):
 				camera.fov = lerp(camera.fov, aim, delta * 10)
-			if Input.is_action_just_pressed("reload"):
+			if Input.is_action_just_pressed("reload") and !Input.is_action_pressed("aim") and !Input.is_action_pressed("crouch"):
 				reload()
-			if Input.is_action_pressed("action") and ok:
+			if Input.is_action_pressed("action") and ok and !reloading:
 				shoot()
 
 func reload():
+	reloading = true
+	var o = Timer.new()
+	o.set_wait_time(1)
+	o.set_one_shot(true)
+	self.add_child(o)
+	o.start()
+	yield(o, "timeout")
+	ok = true
 	real_ammo = ammo
 	$Control/HBoxContainer/Label.text = str(real_ammo) + "/" + str(ammo)
+	reloading = false
+	o.queue_free()
 
 func load_data():
 	var file = File.new()
@@ -91,13 +102,13 @@ func shoot():
 			camera.get_parent().transform = camera.get_parent().transform.rotated(Vector3(1,0,0).rotated(Vector3(0,1,0), camera.global_transform.basis.get_euler().y), deg2rad(0.1 + recoil))
 			var b = bullet.instance()
 			b.source = true
-			get_tree().current_scene.add_child(b)
 			b.global_transform.origin = $pain_base/Position3D.global_transform.origin
+			get_tree().current_scene.add_child(b)
 			var direction
 			if raycast.is_colliding():
 				direction = ((raycast.get_collision_point() + Vector3(rand_range(-accuracy, accuracy), rand_range(-accuracy, accuracy), 0)) - $pain_base/Position3D.global_transform.origin).normalized()
 			else:
-				direction = (((-transform.basis.z * 50) + Vector3(rand_range(-accuracy, accuracy), rand_range(-accuracy, accuracy), 0)) - $pain_base/Position3D.global_transform.origin).normalized()
+				direction = (((-raycast.global_transform.basis.z * 50) + Vector3(rand_range(-accuracy, accuracy), rand_range(-accuracy, accuracy), 0)) - $pain_base/Position3D.global_transform.origin).normalized()
 			b.add_central_force(direction * 500)
 			b.look_at(b.linear_velocity, Vector3.UP)
 			b.transform.basis.scaled(Vector3(1,1,b.linear_velocity.length()))

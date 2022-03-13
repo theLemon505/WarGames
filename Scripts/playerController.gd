@@ -5,6 +5,7 @@ onready var head: MeshInstance = $bot/Sphere
 export var acceleration = 15
 export var speed = 10
 export var jump_force = 25
+export var health = 100
 
 var pos = Vector3.ZERO
 var rot = Vector3.ZERO
@@ -58,6 +59,9 @@ func _integrate_forces(state):
 				vector.z = clamp(vector.z, -act_speed, act_speed)
 
 func _process(delta):
+	if health <= 0:
+			print("deat")
+			die()
 	if active:
 		timer -= 1
 		if Input.is_action_pressed("aim"):
@@ -67,10 +71,6 @@ func _process(delta):
 		var x = Input.get_action_strength("right") - Input.get_action_strength("left")
 		var z = Input.get_action_strength("down") - Input.get_action_strength("up")
 		
-		if Input.is_action_just_pressed("sprint") and vector.length() != 0:
-			$AudioStreamPlayer3D.playing = true
-		elif Input.is_action_just_released("sprint") or vector.length() == 0:
-			$AudioStreamPlayer3D.playing = false
 		if Input.is_action_pressed("sprint") and vector.length() != 0:
 			$bot/AnimationPlayer.play("sprint")
 			act_speed = acceleration * 2
@@ -99,8 +99,16 @@ func _process(delta):
 			Network.send({"contact":"server","type":"update-room","roomId":Network.room_id})
 			timer = 5
 	else:
-		global_transform.origin = global_transform.origin.linear_interpolate(pos, delta * 2.5)
+		global_transform.origin = global_transform.origin.linear_interpolate(pos, delta * 6)
 		var current_rot = Quat(head.global_transform.basis.get_rotation_quat())
 		var target = Quat(rot)
-		var smooth = current_rot.slerp(target, delta * 2.5)
+		var smooth = current_rot.slerp(target, delta * 6)
 		head.global_transform.basis = Basis(smooth)
+
+func die():
+	var ragdoll = load("res://Assets/Player/Ragdoll.tscn").instance()
+	ragdoll.global_transform.origin = global_transform.origin
+	ragdoll.global_transform.basis = global_transform.basis
+	get_tree().current_scene.add_child(ragdoll)
+	Network.send({"contact":"server", "type":"delete", "roomId":Network.room_id, "name":get_path()})
+	queue_free()

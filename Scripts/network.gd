@@ -4,6 +4,7 @@ var socket: WebSocketClient = WebSocketClient.new()
 var client_id = ""
 var room_id = ""
 var lobby_clients = []
+var lobby_color = Color.cornflower
 var room_clients = []
 var username = ""
 var active = true
@@ -16,6 +17,7 @@ signal room_update
 signal client_left
 signal spawn_item
 signal delete_item
+signal update_item
 
 func _ready():
 	socket.connect("data_received", self, "_on_data")
@@ -63,6 +65,12 @@ func _on_data():
 	if payload["type"] == "spawn":
 		if payload["status"] == "good":
 			emit_signal("spawn_item", payload["name"], payload["path"], payload["meta"])
+	if payload["type"] == "delete":
+		if payload["status"] == "good":
+			emit_signal("delete_item", payload["name"])
+	if payload["type"] == "update_item":
+		if payload["status"] == "good":
+			emit_signal("update_item", payload["name"], payload["meta"])
 	if payload["type"] == "handshake":
 		if payload["status"] == "good":
 			client_id = payload["id"]

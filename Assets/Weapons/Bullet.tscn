@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Assets/Materials/Team_Color.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/bullet.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Materials/Special/No_Lit_team.tres" type="Material" id=3]
 [ext_resource path="res://Imports/images/aim_small.png" type="Texture" id=4]
 [ext_resource path="res://Imports/Audio/hit.mp3" type="AudioStream" id=5]
 
@@ -25,16 +24,27 @@ curve = SubResource( 6 )
 [sub_resource type="ParticlesMaterial" id=3]
 trail_size_modifier = SubResource( 7 )
 trail_color_modifier = SubResource( 5 )
+emission_shape = 1
+emission_sphere_radius = 1.0
 direction = Vector3( 0, 1, 0 )
 spread = 10.0
 gravity = Vector3( 0, -50, 0 )
 initial_velocity = 15.0
 scale = 0.1
 
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 0, 0.647059, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
 [sub_resource type="SphereMesh" id=4]
-material = ExtResource( 3 )
+material = SubResource( 12 )
 
 [sub_resource type="SphereShape" id=9]
+radius = 2.17598
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -145,6 +155,7 @@ draw_pass_1 = SubResource( 4 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+autostart = true
 
 [node name="Area" type="Area" parent="."]
 
@@ -163,10 +174,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -12.5
-margin_top = -12.5
-margin_right = 12.5
-margin_bottom = 12.5
+margin_left = 499.5
+margin_top = 287.5
+margin_right = 524.5
+margin_bottom = 312.5
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
@@ -176,3 +187,5 @@ anims/hit = SubResource( 10 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]

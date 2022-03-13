@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Imports/bot.glb" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Materials/Team_Color.tres" type="Material" id=4]
@@ -33,7 +33,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.01, 0.03, 0.05, 0.07 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.3, -1.106 ), Vector3( 0.1, -0.25, -1.106 ), Vector3( -0.1, -0.2, -1.106 ), Vector3( 0.032, -0.3, -1.106 ), Vector3( 0, -0.3, -1.106 ) ]
+"values": [ Vector3( 0, -0.3, -1.106 ), Vector3( 0, -0.3, -1.106 ), Vector3( 0, -0.3, -1.106 ), Vector3( 0.032, -0.3, -1.106 ), Vector3( 0, -0.3, -1.106 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -75,7 +75,7 @@ tracks/2/keys = {
 "values": [ Vector3( 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sphere/hand:rotation_degrees")
+tracks/3/path = NodePath("Sphere/hand:translation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -84,10 +84,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0.460083, -1.12016, -2.43864 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Sphere/hand:translation")
+tracks/4/path = NodePath("Sphere/hand:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -96,7 +96,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0.682921, -1.02293, -2.79661 ) ]
+"values": [ Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -112,7 +112,19 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.711484, -2.797 ) ]
+"values": [ Vector3( 0, -0.759049, -2.797 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sphere/hand:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -167,6 +179,21 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 45 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sphere/hand:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.460083, -1.01792, -2.43864 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "reload"
 
 [sub_resource type="Animation" id=3]
 resource_name = "sprint"
@@ -174,7 +201,7 @@ length = 0.5
 loop = true
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sphere/Camera:translation")
+tracks/0/path = NodePath("Sphere/hand:rotation_degrees")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -183,7 +210,19 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.1, -0.2, -1.106 ), Vector3( -0.02, -0.35, -1.106 ), Vector3( -0.1, -0.2, -1.106 ), Vector3( -0.02, -0.35, -1.106 ), Vector3( 0.1, -0.2, -1.106 ) ]
+"values": [ Vector3( -1.02846, 36.4798, -0.760375 ), Vector3( -1.02846, 36.4798, -0.760375 ), Vector3( -1.02846, 36.4798, -0.760375 ), Vector3( -1.02846, 36.4798, -0.760375 ), Vector3( -1.02846, 36.4798, -0.760375 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sphere/hand:translation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.189838, -1.15454, -2.79107 ), Vector3( 0.267021, -1.06587, -2.79107 ), Vector3( 0.189838, -1.15454, -2.79107 ), Vector3( -0.160173, -1.06587, -2.79107 ), Vector3( 0.189838, -1.15454, -2.79107 ) ]
 }
 
 [node name="bot" instance=ExtResource( 1 )]
@@ -212,10 +251,11 @@ anims/RESET = SubResource( 6 )
 anims/shake = SubResource( 7 )
 
 [node name="hand" type="Position3D" parent="Sphere" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.682921, -1.02293, -2.79661 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.460083, -1.12016, -2.43864 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 anims/RESET = SubResource( 4 )
 anims/aim = SubResource( 8 )
 anims/crouch = SubResource( 5 )
+anims/reload = SubResource( 9 )
 anims/sprint = SubResource( 3 )
